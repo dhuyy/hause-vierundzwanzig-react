@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 
 import { BANDSINTOWN_API, YOUTUBE_API } from '../constants/apiConstants';
 import { GET_ARTIST_INFO, CHANGE_LOADING_ARTIST_INFO_STATE } from '../constants/actionTypes';
@@ -49,7 +50,10 @@ export function getArtistInfo(artistName) {
       type: GET_ARTIST_INFO,
       payload: request
     }).then(() => {
-      dispatch(updateLoadingArtistState(false));
+      Promise.all([
+        dispatch(updateLoadingArtistState(false)),
+        dispatch(push('/detail'))
+      ]);
     });
   }
 }
