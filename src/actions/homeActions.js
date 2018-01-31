@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { BANDSINTOWN_API, YOUTUBE_API } from '../constants/apiConstants';
-import { GET_ARTIST_INFO } from '../constants/actionTypes';
+import { GET_ARTIST_INFO, CHANGE_LOADING_ARTIST_INFO_STATE } from '../constants/actionTypes';
 
 const getArtistDetails = (artistName) => {
   return axios.get(BANDSINTOWN_API.BASE_URL.concat('/artists/', artistName), {
@@ -19,7 +19,7 @@ const getArtistEvents = (artistName) => {
   });
 };
 
-const getArtistVideos = (artistName) => {
+const getArtistVideos = artistName => {
   return axios.get(YOUTUBE_API.BASE_URL, {
     params: {
       key: YOUTUBE_API.API_KEY,
@@ -32,11 +32,24 @@ const getArtistVideos = (artistName) => {
   });
 };
 
-export const getArtistInfo = (artistName) => {
-  const request = axios.all([getArtistDetails(artistName), getArtistEvents(artistName), getArtistVideos(artistName)]);
-
-  return {
-    type: GET_ARTIST_INFO,
-    payload: request
+export function updateLoadingArtistState(isLoading) {
+  return (dispatch) => {
+    dispatch({
+      type: CHANGE_LOADING_ARTIST_INFO_STATE,
+      payload: isLoading
+    });
   }
-};
+}
+
+export function getArtistInfo(artistName) {
+  return dispatch => {
+    const request = axios.all([getArtistDetails(artistName), getArtistEvents(artistName), getArtistVideos(artistName)]);
+
+    dispatch({
+      type: GET_ARTIST_INFO,
+      payload: request
+    }).then(() => {
+      dispatch(updateLoadingArtistState(false));
+    });
+  }
+}

@@ -20,7 +20,8 @@ export default class SearchArtistForm extends Component {
   onSearchTerm(event) {
     event.preventDefault();
 
-    this.props.onSearchArtist(this.state.term);
+    this.props.updateLoadingArtistState(true);
+    this.props.searchArtist(this.state.term);
 
     this.setState({ term: '' });
   }

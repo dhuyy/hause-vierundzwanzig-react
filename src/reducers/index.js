@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import homeReducer from '../reducers/homeReducer';
 
 const rootReducer = combineReducers({
-  currentSearch: homeReducer,
+  home: homeReducer,
   routing: routerReducer
 });
 

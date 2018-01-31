@@ -1,5 +1,18 @@
-import { GET_ARTIST_INFO } from '../constants/actionTypes';
-import initialState from './initialState';
+import { GET_ARTIST_INFO, CHANGE_LOADING_ARTIST_INFO_STATE } from '../constants/actionTypes';
+
+const initialState = {
+  isLoadingArtistInfo: false,
+  currentSearch: {
+    details: null,
+    events: [],
+    videos: []
+  },
+  lastSearch: {
+    details: null,
+    events: [],
+    videos: []
+  }
+};
 
 const HomeReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,6 +24,9 @@ const HomeReducer = (state = initialState, action) => {
       };
 
       return { ...state, currentSearch };
+
+    case CHANGE_LOADING_ARTIST_INFO_STATE:
+      return { ...state, isLoadingArtistInfo: action.payload };
 
     default:
       return state;

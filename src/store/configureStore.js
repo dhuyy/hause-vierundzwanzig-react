@@ -1,8 +1,8 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import promiseMiddleware from 'redux-promise';
+import thunkMiddleware from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
-// 'routerMiddleware': the new way of storing route changes with redux middleware since rrV4.
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 
@@ -11,6 +11,7 @@ export const history = createHistory();
 function configureStoreProd(initialState) {
   const reactRouterMiddleware = routerMiddleware(history);
   const middlewares = [
+    thunkMiddleware,
     promiseMiddleware,
     reactRouterMiddleware,
   ];
@@ -27,6 +28,7 @@ function configureStoreDev(initialState) {
     // Redux middleware that spits an error on you when you try to mutate your state either inside a dispatch or between dispatches.
     reduxImmutableStateInvariant(),
 
+    thunkMiddleware,
     promiseMiddleware,
     reactRouterMiddleware,
   ];
