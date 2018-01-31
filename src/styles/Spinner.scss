@@ -1,0 +1,11 @@
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background: url('../assets/images/spinner.gif');
+  background-size: 100%;
+}
+
+.spinner.invisible {
+  visibility: hidden;
+}
