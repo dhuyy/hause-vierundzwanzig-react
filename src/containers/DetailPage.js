@@ -29,15 +29,22 @@ class DetailPage extends Component {
     }
 
     if (localStorage.getItem('lastSearch')) {
-      this.props.getArtistInfoFromCache();
+      this.props.getArtistInfoFromCache()
+        .then(() => {
+          this.renderChunkOfVideos();
+        });
       return;
     }
 
     this.props.history.push('/');
   }
 
-  componentDidUpdate() {
-    this.renderChunkOfVideos();
+  // componentDidUpdate() {
+  //   this.renderChunkOfVideos();
+  // }
+
+  componentWillUnmount() {
+    this.setState({ videos: [] });
   }
 
   renderChunkOfVideos() {

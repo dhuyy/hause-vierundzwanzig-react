@@ -43,9 +43,13 @@ export function getArtistInfo(artistName) {
 }
 
 export function getArtistInfoFromCache() {
+  const lastSearchPromise = new Promise(resolve => {
+    resolve(JSON.parse(localStorage.getItem('lastSearch')));
+  });
+
   return {
     type: GET_ARTIST_INFO,
-    payload: JSON.parse(localStorage.getItem('lastSearch'))
+    payload: lastSearchPromise
   }
 }
 
