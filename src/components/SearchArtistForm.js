@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styles from '../styles/SearchArtistForm.scss';
+
+import styles from '../styles/searchArtistForm.scss';
 
 export default class SearchArtistForm extends Component {
   constructor(props) {
@@ -10,25 +11,26 @@ export default class SearchArtistForm extends Component {
     };
 
     this.onInputChange = this.onInputChange.bind(this);
-    this.onSearchTerm = this.onSearchTerm.bind(this);
+    this.onSearchArtist = this.onSearchArtist.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.setState({ term: '' });
   }
 
   onInputChange(event) {
     this.setState({ term: event.target.value });
   }
 
-  onSearchTerm(event) {
+  onSearchArtist(event) {
     event.preventDefault();
 
-    this.props.updateLoadingArtistState(true);
-    this.props.searchArtist(this.state.term);
-
-    this.setState({ term: '' });
+    this.props.onSearchArtist(this.state.term);
   }
 
   render() {
     return (
-      <form onSubmit={this.onSearchTerm} noValidate>
+      <form onSubmit={this.onSearchArtist} noValidate>
         <span className="input input--haruki">
           <input id="input-1" type="text"
                  className="input__field input__field--haruki"

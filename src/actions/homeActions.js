@@ -33,27 +33,25 @@ const getArtistVideos = artistName => {
   });
 };
 
-export function updateLoadingArtistState(isLoading) {
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_LOADING_ARTIST_INFO_STATE,
-      payload: isLoading
-    });
+export function getArtistInfo(artistName) {
+  const request = axios.all([getArtistDetails(artistName), getArtistEvents(artistName), getArtistVideos(artistName)]);
+
+  return {
+    type: GET_ARTIST_INFO,
+    payload: request
   }
 }
 
-export function getArtistInfo(artistName) {
-  return dispatch => {
-    const request = axios.all([getArtistDetails(artistName), getArtistEvents(artistName), getArtistVideos(artistName)]);
+export function getArtistInfoFromCache() {
+  return {
+    type: GET_ARTIST_INFO,
+    payload: JSON.parse(localStorage.getItem('lastSearch'))
+  }
+}
 
-    dispatch({
-      type: GET_ARTIST_INFO,
-      payload: request
-    }).then(() => {
-      Promise.all([
-        dispatch(updateLoadingArtistState(false)),
-        dispatch(push('/detail'))
-      ]);
-    });
+export function updateLoadingArtistState(isLoading) {
+  return {
+    type: CHANGE_LOADING_ARTIST_INFO_STATE,
+    payload: isLoading
   }
 }

@@ -63,10 +63,10 @@
     .last-search {
       font-family: 'Raleway', Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       
       @media (min-width: 768px) {
-        margin-top: 60px;
-        flex-direction: column;
+        margin-top: 50px;
       }
       
       > .title {
@@ -83,13 +83,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 10px;
         
-        @media (max-width: 767px) {
-          margin: 0 auto;
-          margin-top: 30px;
-        }
-        
-        > a {
+        .go-to-detail-page {
+          display: flex;
+          align-items: center;
           text-decoration: none;
           
           .last-search-thumb {

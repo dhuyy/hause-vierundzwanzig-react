@@ -2,16 +2,7 @@ import { GET_ARTIST_INFO, CHANGE_LOADING_ARTIST_INFO_STATE } from '../constants/
 
 const initialState = {
   isLoadingArtistInfo: false,
-  currentSearch: {
-    details: null,
-    events: [],
-    videos: []
-  },
-  lastSearch: {
-    details: null,
-    events: [],
-    videos: []
-  }
+  currentSearch: null
 };
 
 const HomeReducer = (state = initialState, action) => {

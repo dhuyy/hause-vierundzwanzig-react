@@ -1,22 +1,42 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
 import moment from 'moment';
-import styles from '../styles/DetailPage.scss';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { bindActionCreators } from "redux";
+import { withRouter } from 'react-router-dom';
+import { getArtistInfo, getArtistInfoFromCache } from "../actions/homeActions";
+import facebookUrlFilter from '../utils/facebookUrlFilter';
+
+import styles from '../styles/detailPage.scss';
 
 const MAX_VIDEOS_RESULTS = 30;
 const NUMBER_OF_VIDEOS_TO_LOAD = 5;
 
-class HomePage extends Component {
+class DetailPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       videos: []
     };
+
+    this.renderChunkOfVideos = this.renderChunkOfVideos.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    if (this.props.currentSearch) {
+      this.renderChunkOfVideos();
+      return;
+    }
+
+    if (localStorage.getItem('lastSearch')) {
+      this.props.getArtistInfoFromCache();
+      return;
+    }
+
+    this.props.history.push('/');
+  }
+
+  componentDidUpdate() {
     this.renderChunkOfVideos();
   }
 
@@ -34,27 +54,16 @@ class HomePage extends Component {
     }
   }
 
-  facebookUrlFilter(url) {
-    if (url.indexOf('pages') >= 0) {
-      return '@'.concat(
-        url.replace('http://www.facebook.com/pages/', '')
-          .replace(/%20/g, '')
-          .split('/')[0]
-      );
-    } else {
-      return '@'.concat(
-        url.replace('https://www.facebook.com/', '').replace('/', '')
-      );
-    }
-  }
-
   render() {
+    if (this.props.currentSearch === null)
+      return '';
+
     const { history, currentSearch } = this.props;
 
     return (
       <div className="detail-page">
         <div className="back-button" onClick={() => { history.push('/'); }}>
-          <i className="fa fa-arrow-left" aria-hidden="true"></i>
+          <i className="fa fa-arrow-left" aria-hidden="true"/>
           <span>Back</span>
         </div>
         <div className="artist">
@@ -67,11 +76,11 @@ class HomePage extends Component {
               <div className="facebook">
               <img src="../assets/images/facebook_icon.png" alt="Facebook Icon" className="icon"/>
               {(() => {
-                if (currentSearch.details.facebook_page_url == '') {
-                  return <span ng-if="vm.artist.details.facebook_page_url == ''" className="url">No facebok profile.</span>;
+                if (currentSearch.details.facebook_page_url === '') {
+                  return <span className="url">No facebok profile.</span>;
                 } else {
                   return (<a target="_blank" href={ currentSearch.details.facebook_page_url } className="url">
-                    { this.facebookUrlFilter(currentSearch.details.facebook_page_url) }</a>);
+                    { facebookUrlFilter(currentSearch.details.facebook_page_url) }</a>);
                 }
               })()}
               </div>
@@ -127,7 +136,7 @@ class HomePage extends Component {
           })}
           { (this.state.videos.length !== MAX_VIDEOS_RESULTS) ?
             <button className="btn bnt-lg btn-default btn-show-more"
-                    onClick={() => this.renderChunkOfVideos()}>Show More</button> : ''
+                    onClick={this.renderChunkOfVideos}>Show More</button> : ''
           }
         </div>
       </div>
@@ -139,4 +148,8 @@ function mapStateToProps(state) {
   return { currentSearch: state.home.currentSearch }
 }
 
-export default connect(mapStateToProps)(withRouter(HomePage));
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getArtistInfo, getArtistInfoFromCache }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DetailPage));
