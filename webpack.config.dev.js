@@ -12,6 +12,7 @@ export default {
     './src/webpack-public-path',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
+    'font-awesome/scss/font-awesome.scss',
     path.resolve(__dirname, 'src/index.js') // Defining path seems necessary for this to work consistently on Windows machines.
   ],
   target: 'web',
@@ -118,6 +119,13 @@ export default {
               sourceMap: true
             }
           }
+        ]
+      },
+      {
+        test: /fontAwesomeConfig\.js/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'font-awesome-loader' }
         ]
       }
     ]

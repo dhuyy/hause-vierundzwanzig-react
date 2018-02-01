@@ -1,0 +1,299 @@
+.detail-page {
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 75px;
+  
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    
+    @media (max-width: 767px) {
+      width: 76px;
+      left: calc(50% - 38px);
+    }
+    
+    i {
+      color: #2fa0ec;
+      font-size: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: all .1s linear;
+    }
+    
+    &:hover, &:focus {
+      i {
+        color: #404d5b;
+      }
+    }
+    
+    span {
+      font-family: 'Raleway', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 19px;
+      color: #404d5b;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 768px) {
+    width: 85%;
+    justify-content: space-between;
+  }
+  
+  .artist {
+    @media (min-width: 768px) and (max-width: 1829px) {
+      flex: 0 0 705px;
+      max-width: 705px;
+    }
+    
+    @media (min-width: 1830px) {
+      flex: 0 0 940px;
+      max-width: 940px;
+    }
+    
+    display: flex;
+    flex-direction: column;
+    
+    .details {
+      display: flex;
+      
+      @media (max-width: 767px) {
+        flex-direction: column;
+      }
+      
+      .picture {
+        min-width: 183px;
+        height: 183px;
+        
+        > img {
+          height: 100%;
+        }
+      }
+      
+      .information {
+        width: 100%;
+        margin-left: 10px;
+        font-family: 'Raleway', Arial, sans-serif;
+        
+        .name {
+          color: #404d5b;
+          font-size: 2.3em;
+          font-weight: 800;
+          margin: 10px;
+        }
+        
+        .facebook {
+          margin: 10px;
+          display: flex;
+          align-items: center;
+          
+          .icon {
+            width: 24px;
+          }
+          
+          .url {
+            margin-left: 5px;
+            color: #404d5b;
+            font-weight: normal;
+            text-decoration: none;
+          }
+        }
+      }
+      
+      @media (max-width: 767px) {
+        .picture {
+          margin: 0 auto;
+        }
+        
+        .information {
+          text-align: center;
+          
+          .name {
+            margin: 15px;
+          }
+          
+          .facebook {
+            justify-content: center;
+            margin: 15px;
+          }
+        }
+      }
+    }
+    
+    hr {
+      @media (min-width: 768px) {
+        width: calc(100% - 15px);
+      }
+      
+      border-color: #dbd1d1;
+      margin: 40px 0;
+    }
+    
+    .events {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Raleway', Arial, sans-serif;
+      
+      > h4 {
+        font-weight: normal;
+        margin: 0 0 20px;
+        letter-spacing: -2px;
+        
+        @media (max-width: 767px) {
+          text-align: center;
+        }
+      }
+      
+      .events-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        
+        @media (max-width: 767px) {
+          justify-content: center;
+        }
+        
+        .event {
+          width: 220px;
+          height: 115px;
+          background: url('../assets/images/ticket.png') no-repeat;
+          background-size: 100%;
+          font-family: 'Raleway', Arial, sans-serif;
+          font-weight: normal;
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+          color: whitesmoke;
+          text-transform: uppercase;
+          position: relative;
+          margin-right: 15px;
+          margin-bottom: 15px;
+          transition: all .2s linear;
+          opacity: 0.8;
+          cursor: pointer;
+          
+          &:hover {
+            opacity: 1.0;
+          }
+          
+          > a {
+            color: white;
+          }
+          
+          .event-wrapper {
+            width: 145px;
+            height: 107px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-top: 5px;
+            margin-left: 23px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            .venue {
+              font-size: 20px;
+              text-align: center;
+              letter-spacing: -1.5px;
+              line-height: 1;
+            }
+            
+            > div {
+              font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+              display: flex;
+              flex-direction: column;
+              text-align: center;
+              line-height: 1.2;
+              
+              .date {
+                font-size: 10px;
+              }
+              
+              .location {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  hr.visible-xs-block {
+    border-color: #dbd1d1;
+    margin: 25px 0 40px;
+  }
+  
+  .artist-videos {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    font-family: 'Raleway', Arial, sans-serif;
+    
+    @media (min-width: 768px) {
+      padding-left: 48px;
+    }
+    
+    > h4 {
+      font-weight: normal;
+      margin: 0 0 20px;
+      letter-spacing: -1.5px;
+      
+      @media (max-width: 767px) {
+        margin: 0 0 30px;
+        text-align: center;
+      }
+    }
+    
+    .video {
+      display: flex;
+      margin-bottom: 15px;
+      
+      .thumb {
+        width: 168px;
+        height: 94px;
+        margin-right: 8px;
+        background-color: black;
+        
+        img {
+          height: 100%;
+        }
+      }
+      
+      .name {
+        display: flex;
+        flex-direction: column;
+        
+        .title {
+          font-family: 'Raleway', Arial, sans-serif;
+          font-weight: 800;
+          line-height: 1.2;
+          text-decoration: none;
+          color: #404d5b;
+        }
+        
+        .channel {
+          color: #777777;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+      }
+    }
+    
+    .btn-show-more {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      border-radius: 0;
+    }
+  }
+}
